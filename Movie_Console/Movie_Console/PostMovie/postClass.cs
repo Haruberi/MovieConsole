@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Movie_Console.PostMovie
 {
-    class postClass
+    class postClass : Program
     {
+        public string Id;
+
+        public string MovieTitle;
+
+        public int ReleaseYear;
+        
     }
 }

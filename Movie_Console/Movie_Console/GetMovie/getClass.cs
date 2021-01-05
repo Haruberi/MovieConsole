@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Movie_Console.GetMovie
 {
-    class getClass
+    class getClass : Program
     {
+        string Id;
     }
 }

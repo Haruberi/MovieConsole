@@ -10,6 +10,13 @@ namespace Movie_Console
     {
         static void Main(string[] args)
         {
+            //Get
+
+            //Get by id
+
+            //Post
+
+            //Delete
         }
     }
 }

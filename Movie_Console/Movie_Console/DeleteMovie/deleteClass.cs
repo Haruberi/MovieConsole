@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Movie_Console.DeleteMovie
 {
-    class deleteClass
+    class deleteClass : Program
     {
+        public string createdMovieDelete = "_Delete_";
     }
 }
