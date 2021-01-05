@@ -12,11 +12,17 @@ namespace Movie_Console
         {
             //Get
 
+
             //Get by id
+            Console.WriteLine("Enter ID to get film");
 
             //Post
 
+
+
             //Delete
+
+
         }
     }
 }
