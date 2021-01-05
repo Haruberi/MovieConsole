@@ -1,28 +1,46 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Http;
+using Movie_Console.MovieAPI;
 
 namespace Movie_Console
 {
     class Program
     {
-        static void Main(string[] args)
+        static HttpClient movie = new HttpClient();
+
+        static void ShowMovie(Movie movie)
         {
-            //Get
-
-
-            //Get by id
-            Console.WriteLine("Enter ID to get film");
-
-            //Post
-
-
-
-            //Delete
-
-
+            Console.WriteLine($"ID: {Id}" +
+            $"\n Movie title: {MovieTitle}" +
+            $"\n Release year: {ReleaseYear}");
         }
+
+        static void Main()
+        {
+            RunAsync().GetAwaiter().GetResult();
+        }
+
+        static async Task RunAsync()
+        {
+            //localhost link
+            try
+            {
+                //Create new movie
+                Movie movie = new Movie
+                {
+                    Id="1",
+                    MovieTitle="The banana and me",
+                    ReleaseYear=2021
+                };
+                var url=await CreateMovieAsync
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
     }
 }

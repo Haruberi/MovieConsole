@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Movie_Console.MovieAPI
 {
-    class Movie
+    public class Movie
     {
+        public string Id { get; set; }
+        public string MovieTitle { get; set; }
+        public int ReleaseYear { get; set; }
     }
 }
