@@ -11,5 +11,6 @@ namespace Movie_Console.MovieAPI
         public string Id { get; set; }
         public string MovieTitle { get; set; }
         public int ReleaseYear { get; set; }
+
     }
 }
