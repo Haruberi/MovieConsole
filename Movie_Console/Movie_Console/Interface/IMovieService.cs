@@ -32,6 +32,17 @@ namespace Movie_Console.Interface
             return _movies;
         }
 
+        public async Task<Movie> GetMovieAsync(string id)
+        {
+            //Anrop till ditt API
+            var client = new RestClient($"https://localhost:5001/api/Movie/{id}");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.GET);
+            IRestResponse response = client.Execute(request);
+            Console.WriteLine(response.Content);
+
+        }
+
     }
 }
 

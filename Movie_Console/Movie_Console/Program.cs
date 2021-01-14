@@ -11,7 +11,7 @@ namespace Movie_Console
     class Program : Movie
     {
         static HttpClient movie = new HttpClient();
-
+        
         public void ShowMovie(Movie movie)
         {
             Console.WriteLine($"ID: {Id}" +
@@ -19,39 +19,39 @@ namespace Movie_Console
             $"\n Release year: {ReleaseYear}");
         }
 
-        //Post
-        static async Task<Uri> CreateMovieAsync(Movie movie)
-        {
-            HttpResponseMessage response = await movie.PostAsJsonAsync(
-                "api/movies", movie);
-            response.EnsureSuccessStatusCode();
+        //Post //Flytta till movieservice
+        //static async Task<Uri> CreateMovieAsync(Movie movie)
+        //{
+        //    HttpResponseMessage response = await movie.PostAsJsonAsync(
+        //        "api/movies", movie);
+        //    response.EnsureSuccessStatusCode();
 
-            return response.Headers.Location;
-        }
-        //Get
-        static async Task<Movie> GetMovieAsync(string path)
-        {
-            Movie movie = null;
-            HttpResponseMessage response = await movie.GetAsync(path);
-            if (response.IsSuccessStatusCode)
-            {
-                movie = await response.Content.ReadAsAsync<Movie>();
-            }
-            return movie;
-        }
-        //Update
-        static async Task<Movie> UpdateMovieAsync(Movie movie)
-        {
-            HttpResponseMessage response = await movie.PutAsJsonAsync(
-                $"api/movies/{movie.Id}", movie);
-            response.EnsureSuccessStatusCode();
+        //    return response.Headers.Location;
+        //}
+        //Get //Flytta till MovieService
+        //static async Task<Movie> GetMovieAsync(string path)
+        //{
+        //    Movie movie = null;
+        //    HttpResponseMessage response = await movie.GetAsync(path);
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        movie = await response.Content.ReadAsAsync<Movie>();
+        //    }
+        //    return movie;
+        //}
+        //Update Flytta till MovieService
+        //static async Task<Movie> UpdateMovieAsync(Movie movie)
+        //{
+        //    HttpResponseMessage response = await MovieService.PutAsJsonAsync(
+        //        $"api/movies/{movie.Id}", movie);
+        //    response.EnsureSuccessStatusCode();
 
-            movie = await response.Content.ReadAsAsync<Movie>();
-            return movie;
-        }
+        //    movie = await response.Content.ReadAsAsync<Movie>();
+        //    return movie;
+        //}
         //Delete
 
-        static async Task<HttpStatusCode> DeleteMovieAsync(string id)
+        static async Task<HttpStatusCode> DeleteMovieAsync(string id)//Flytta till movieService
         {
             HttpResponseMessage response = await movie.DeleteAsync(
                 $"api/movies{id}");
@@ -65,6 +65,15 @@ namespace Movie_Console
 
         public static async Task RunAsync()
         {
+            var testmovie =  await new MovieService().GetMovieAsync("något id");
+            //var menuChoice = RunMenu();
+            //switch (menuChoice)
+            //{
+            //    case: "GetMovie";
+            //        var movie =await MovieService.GetMovieAsync(id);
+            //    default:
+            //        break;
+            //}
             //Create port for localhost
             movie.BaseAddress = new Uri("");
             movie.DefaultRequestHeaders.Accept.Clear();
@@ -82,18 +91,18 @@ namespace Movie_Console
                     ReleaseYear = 2021
                 };
 
-                var url = await CreateMovieAsync(movie);
-                Console.WriteLine($"Created at {url}");
+                //var url = await CreateMovieAsync(movie);
+                //Console.WriteLine($"Created at {url}");
 
                 //GET
-                movie = await GetMovieAsync(url.PathAndQuery);
-                ShowMovie(movie);
+                //movie = await GetMovieAsync(url.PathAndQuery);
+                //ShowMovie(movie);
 
                 //UPDATE
 
                 //GET UPDATE
-                movie = await GetMovieAsync(url.PathAndQuery);
-                ShowMovie(movie);
+                //movie = await GetMovieAsync(url.PathAndQuery);
+                //ShowMovie(movie);
 
                 //DELETE
                 var statusCode = await DeleteMovieAsync(movie.Id);
