@@ -1,4 +1,5 @@
 ﻿using Movie_Console.MovieAPI;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,9 +36,11 @@ namespace Movie_Console.Interface
         public async Task<Movie> GetMovieAsync(string id)
         {
             //Anrop till ditt API
+            //pröva först med get
             var client = new RestClient($"https://localhost:5001/api/Movie/{id}");
             client.Timeout = -1;
-            var request = new RestRequest(Method.GET);
+            var request = new RestRequest(Method.Get);
+            //request.Data(new Movie { })
             IRestResponse response = client.Execute(request);
             Console.WriteLine(response.Content);
 

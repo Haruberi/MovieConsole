@@ -10,7 +10,12 @@ namespace Movie_Console.MovieAPI
     //Actions to get/post/delete/movies
     public class MovieAction : Movie
     {
+        //return movies
         [HttpGet]
+        //add movies
+        [HttpPost]
+        //delete movies
+        [HttpDelete]
 
     }
 }
