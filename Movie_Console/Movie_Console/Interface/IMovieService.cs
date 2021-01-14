@@ -13,8 +13,9 @@ namespace Movie_Console.Interface
     {
         Movie CreateMovie(Movie movie);
         List<Movie> GetMovies();
+        Movie GetMovieAsync(string id);
     }
-    public class MovieService : IMovieService
+    public class MovieService
     {
         public Movie CreateMovie(Movie movie)
         {
@@ -32,22 +33,30 @@ namespace Movie_Console.Interface
         {
             return _movies;
         }
-
-        public async Task<Movie> GetMovieAsync(string id)
+        public Movie GetAsyncMovie(string id)
         {
+            throw new NotImplementedException();
+        
+
+        //public async Task<Movie> GetMovieAsync(string id)
+        //{
             //Anrop till ditt API
-            //pröva först med get
-            var client = new RestClient($"https://localhost:5001/api/Movie/{id}");
-            client.Timeout = -1;
-            var request = new RestRequest(Method.Get);
+            //GET
+            var movie = new RestClient($"https://localhost:5001/api/Movie/{id}");
+            movie.Timeout = -1;
+            var request = new RestRequest(Method.GET);
             //request.Data(new Movie { })
-            IRestResponse response = client.Execute(request);
+            IRestResponse response = movie.Execute(request);
             Console.WriteLine(response.Content);
 
-        }
+            //POST
 
+            //DELETE
+
+        }
     }
 }
+
 
 
 

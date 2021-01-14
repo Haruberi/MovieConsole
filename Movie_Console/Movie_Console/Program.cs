@@ -74,11 +74,12 @@ namespace Movie_Console
             //    default:
             //        break;
             //}
+
             //Create port for localhost
-            movie.BaseAddress = new Uri("");
-            movie.DefaultRequestHeaders.Accept.Clear();
-            movie.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue(""));
+            //movie.BaseAddress = new Uri("");
+            //movie.DefaultRequestHeaders.Accept.Clear();
+            //movie.DefaultRequestHeaders.Accept.Add(
+              //  new MediaTypeWithQualityHeaderValue(""));
 
             try
             {

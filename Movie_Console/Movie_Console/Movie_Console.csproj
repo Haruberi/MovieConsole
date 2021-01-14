@@ -170,8 +170,6 @@
   <ItemGroup>
     <Compile Include="Interface\IMovieService.cs" />
     <Compile Include="MovieAPI\Movie.cs" />
-    <Compile Include="MovieAPI\MovieAction.cs" />
-    <Compile Include="MovieAPI\MovieConsoleController.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

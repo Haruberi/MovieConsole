@@ -13,4 +13,11 @@ namespace Movie_Console.MovieAPI
         public int ReleaseYear { get; set; }
 
     }
+
+    public class GetMovies
+    {
+        return GetMoviesAsync;
+    }
+
+
 }
