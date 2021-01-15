@@ -1,5 +1,6 @@
 ﻿using Movie_Console.MovieAPI;
 using RestSharp;
+using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace Movie_Console.Interface
     {
         Movie CreateMovie(Movie movie);
         List<Movie> GetMovies();
-        Movie GetMovieAsync(string id);
+        Task<Movie> GetMovieAsync(string id);
     }
     public class MovieService
     {
@@ -33,29 +34,86 @@ namespace Movie_Console.Interface
         {
             return _movies;
         }
-        public Movie GetAsyncMovie(string id)
-        {
-            throw new NotImplementedException();
-        
 
-        //public async Task<Movie> GetMovieAsync(string id)
+        //Get //Flytta till MovieService
+        //static async Task<Movie> GetMovieAsync(string path)
         //{
+        //    Movie movie = null;
+        //    HttpResponseMessage response = await movie.GetAsync(path);
+        //    if (response.IsSuccessStatusCode)
+        //    {
+        //        movie = await response.Content.ReadAsAsync<Movie>();
+        //    }
+        //    return movie;
+        //}
+        public async Task<Movie> GetMovieAsync(string id)
+        {
             //Anrop till ditt API
+            Movie movie = null;
             //GET
-            var movie = new RestClient($"https://localhost:5001/api/Movie/{id}");
-            movie.Timeout = -1;
-            var request = new RestRequest(Method.GET);
-            //request.Data(new Movie { })
-            IRestResponse response = movie.Execute(request);
-            Console.WriteLine(response.Content);
+            var getMovie = new RestClient($"https://localhost:5001/api/Movie/{id}");
+            getMovie.Authenticator = new HttpBasicAuthenticator("id", "movieTitle");
 
-            //POST
+            var getRequest = new RestRequest(Method.GET);
+            var timeline = await getMovie.GetAsync<Movie>(getRequest);
 
-            //DELETE
-
+            return movie;
+            /*//getMovie.Authenticator = new HttpBasicAuthenticator("id", "movieTitle");
+            //getMovie.Timeout = -1; ???
+            var getRequest =new RestRequest(Method.GET);
+            IRestResponse getResponse = getMovie.Execute(getRequest);
+            var timeline = await getMovie.GetAsync<Movie>(getRequest);
+            Console.WriteLine(getResponse.Content);*/
         }
+
+
+        //Post //Flytta till movieservice
+        //static async Task<Uri> CreateMovieAsync(Movie movie)
+        //{
+        //    HttpResponseMessage response = await movie.PostAsJsonAsync(
+        //        "api/movies", movie);
+        //    response.EnsureSuccessStatusCode();
+
+        //    return response.Headers.Location;
+        //}
+
+        //POST
+        //var postMovie = new RestClient($"https://localhost:5001/api/Movie/");
+        //var postRequest = new RestRequest(Method.POST);
+        //IRestResponse postResponse = postMovie.Execute(postRequest);
+        //postRequest.AddBody(new Movie
+        //{
+        //    Id = "",
+        //    MovieTitle = "",
+        //    ReleaseYear = 1
+        //});
+        //postMovie.Execute(postRequest);
+
+
+        //Delete
+        //static async Task<HttpStatusCode> DeleteMovieAsync(string id)//Flytta till movieService
+        //{
+        //    HttpResponseMessage response = await movie.DeleteAsync(
+        //        $"api/movies{id}");
+        //    return response.StatusCode;
+        //}
+        //static void Main()
+        //{
+        //    RunAsync().GetAwaiter().GetResult();
+        //}
+        //DELETE
+        //var item=new Movie({Id});
+        //var client = new RestClient($"https://localhost:5001/api/Movie/");
+        //var deleteRequest = new RestRequest(Method.DELETE);
+        //deleteRequest.AddParameter("Id", id);
+
+        //client.Execute(deleteRequest);
+
+
+
     }
 }
+
 
 
 
