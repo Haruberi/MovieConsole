@@ -8,8 +8,12 @@ using Movie_Console.Interface;
 
 namespace Movie_Console
 {
-    class Program : Movie
+    class Program:Movie
     {
+        public static void Main(String[] args)
+        {
+            Console.WriteLine("Main method");
+        }
         static HttpClient movie = new HttpClient();
 
         public void ShowMovie(Movie movie)

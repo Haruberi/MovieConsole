@@ -52,8 +52,7 @@ namespace Movie_Console.Interface
             Movie movie = null;
             //GET
             var getMovie = new RestClient($"https://localhost:5001/api/Movie/{id}");
-            getMovie.Authenticator = new HttpBasicAuthenticator("id", "movieTitle");
-
+            //getMovie.Authenticator = new HttpBasicAuthenticator("id", "movieTitle");
             var getRequest = new RestRequest(Method.GET);
             var timeline = await getMovie.GetAsync<Movie>(getRequest);
 
