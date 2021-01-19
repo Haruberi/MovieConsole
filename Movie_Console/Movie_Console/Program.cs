@@ -36,17 +36,7 @@ namespace Movie_Console
         //}
 
 
-        //public static async Task RunAsync()
-        //{
-        //var testmovie =  await new MovieService().GetMovieAsync("något id");
-        //var menuChoice = RunMenu();
-        //switch (menuChoice)
-        //{
-        //    case: "GetMovie";
-        //        var movie =await MovieService.GetMovieAsync(id);
-        //    default:
-        //        break;
-        //}
+        
 
         //Create port for localhost
         //movie.BaseAddress = new Uri("");
@@ -90,5 +80,7 @@ namespace Movie_Console
         //}
 
         //Console.WriteLine();
+
+
     }
 }

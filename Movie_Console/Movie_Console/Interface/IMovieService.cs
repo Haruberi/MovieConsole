@@ -1,12 +1,11 @@
 ﻿using Movie_Console.MovieAPI;
+using Newtonsoft.Json.Linq;
 using RestSharp;
-using RestSharp.Authenticators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Movie_Console.Interface
 {
@@ -15,6 +14,10 @@ namespace Movie_Console.Interface
         Movie CreateMovie(Movie movie);
         List<Movie> GetMovies();
         Task<Movie> GetMovieAsync(string id);
+        Task<Movie> CreateMovieAsync(Movie movie);
+        Task<Movie> DeleteMovieAsync(string id);
+        Task RunAsync();
+
     }
     public class MovieService
     {
@@ -35,83 +38,111 @@ namespace Movie_Console.Interface
             return _movies;
         }
 
-        //Get //Flytta till MovieService
-        //static async Task<Movie> GetMovieAsync(string path)
-        //{
-        //    Movie movie = null;
-        //    HttpResponseMessage response = await movie.GetAsync(path);
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        movie = await response.Content.ReadAsAsync<Movie>();
-        //    }
-        //    return movie;
-        //}
+        //RUNASYNC
+        public static async Task RunAsync()
+        {
+            var runMovie = await new MovieService().GetMovieAsync("Movie_1");
+            var menuChoice = RunMenu();
+            switch (menuChoice)
+            {
+                /*case "Open menu":
+                    var openMenu = await MovieService.RunAsync();
+                    Console.WriteLine("");
+                        break;
+                case "GetMovie":
+                    var getMovie = await MovieService.GetMovieAsync(Id);
+                    Console.WriteLine();
+                    Console.ReadLine();
+                    break;
+                case "CreateMovie":
+                    var postClient = await new MovieService().CreateMovieAsync("");
+                    Console.WriteLine();
+                    Console.ReadLine();
+                    break;
+                case "DeleteMovie":
+                    var deleteClient = await new MovieService().DeleteMovieAsync("");
+                    Console.WriteLine();
+                    Console.ReadLine();
+                default:
+                    Console.WriteLine("Please enter correct number to continue.");
+                    break;*/
+            }
+        }
+
+        private static object RunMenu()
+        {
+            throw new NotImplementedException();
+        }
+
+        //GET
         public async Task<Movie> GetMovieAsync(string id)
         {
-            //Anrop till ditt API
             Movie movie = null;
+            //Anrop till ditt API
             //GET
             var getMovie = new RestClient($"https://localhost:5001/api/Movie/{id}");
             //getMovie.Authenticator = new HttpBasicAuthenticator("id", "movieTitle");
             var getRequest = new RestRequest(Method.GET);
-            var timeline = await getMovie.GetAsync<Movie>(getRequest);
-
+            movie = await getMovie.GetAsync<Movie>(getRequest);
             return movie;
-            /*//getMovie.Authenticator = new HttpBasicAuthenticator("id", "movieTitle");
-            //getMovie.Timeout = -1; ???
-            var getRequest =new RestRequest(Method.GET);
-            IRestResponse getResponse = getMovie.Execute(getRequest);
-            var timeline = await getMovie.GetAsync<Movie>(getRequest);
-            Console.WriteLine(getResponse.Content);*/
         }
 
-
-        //Post //Flytta till movieservice
-        //static async Task<Uri> CreateMovieAsync(Movie movie)
-        //{
-        //    HttpResponseMessage response = await movie.PostAsJsonAsync(
-        //        "api/movies", movie);
-        //    response.EnsureSuccessStatusCode();
-
-        //    return response.Headers.Location;
-        //}
-
         //POST
-        //var postMovie = new RestClient($"https://localhost:5001/api/Movie/");
-        //var postRequest = new RestRequest(Method.POST);
-        //IRestResponse postResponse = postMovie.Execute(postRequest);
-        //postRequest.AddBody(new Movie
-        //{
-        //    Id = "",
-        //    MovieTitle = "",
-        //    ReleaseYear = 1
-        //});
-        //postMovie.Execute(postRequest);
+        public async Task<Movie> CreateMovieAsync(Movie movie)
+        {
+            //1. Create a request pointing to service endpoint
+            var postClient = new RestClient($"https://localhost:5001/api/Movie");
+
+            //2. Create a JSON request which contains all the fields
+            JObject jObjectbody = new JObject();
+            jObjectbody.Add("Id", "Movie_1");
+            jObjectbody.Add("MovieTitle", "The big pineapple");
+            jObjectbody.Add("ReleaseYear", 2021);
+            try
+            {
+                //3. Add JSON body in the request and send the request
+                var postRequest = new RestRequest("new_movie.json", DataFormat.Json);
+                //4. Validate the response
+                var postResponse = await postClient.GetAsync<Movie>(postRequest, CancellationToken.None);
+            }
+            catch (Exception e)
+            {
+                //IRestClient.ThrowOnAnyError = true;
+            }
+            finally
+            {
+                Console.WriteLine("POST method created");
+            }
+            return movie;
+               
 
 
-        //Delete
-        //static async Task<HttpStatusCode> DeleteMovieAsync(string id)//Flytta till movieService
-        //{
-        //    HttpResponseMessage response = await movie.DeleteAsync(
-        //        $"api/movies{id}");
-        //    return response.StatusCode;
-        //}
-        //static void Main()
-        //{
-        //    RunAsync().GetAwaiter().GetResult();
-        //}
-        //DELETE
-        //var item=new Movie({Id});
-        //var client = new RestClient($"https://localhost:5001/api/Movie/");
-        //var deleteRequest = new RestRequest(Method.DELETE);
-        //deleteRequest.AddParameter("Id", id);
-
-        //client.Execute(deleteRequest);
-
-
-
+            //DELETE
+            /*public async Task<Movie> DeleteMovieAsync(string id)
+            {
+                var deleteClient = new RestClient($"https://localhost:5001/api/Movie/{id}");
+                var deleteRequest = new RestRequest("movie/{id}", Method.DELETE) { RequestFormat = DataFormat.Json };
+                try
+                {
+                    deleteRequest.AddParameter("application/json", id, ParameterType.RequestBody);
+                    var deleteResponse = await deleteClient.ExecuteAsync(deleteRequest, CancellationToken.None);
+                }
+                catch (Exception)
+                {
+                    //Add exception
+                    return movie;
+                }
+                finally
+                {
+                    Console.WriteLine("DELETE method created");
+                }*/
+            
+            }
+        }
     }
-}
+
+
+//behövs View här?
 
 
 
