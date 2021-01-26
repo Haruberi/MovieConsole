@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interface\IMovieService.cs" />
+    <Compile Include="Menu\MenuChoice.cs" />
     <Compile Include="MovieAPI\Movie.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

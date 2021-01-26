@@ -14,29 +14,16 @@ namespace Movie_Console
         {
             Console.WriteLine("Main method");
         }
-        static HttpClient movie = new HttpClient();
+        //static HttpClient movie = new HttpClient();
 
         public void ShowMovie(Movie movie)
         {
-            Console.WriteLine($"ID: {Id}" +
+            /*Console.WriteLine($"ID: {Id}" +
             $"\n Movie title: {MovieTitle}" +
-            $"\n Release year: {ReleaseYear}");
+            $"\n Release year: {ReleaseYear}" +
+            $"\n Description: {Description}"
+            );*/
         }
-
-
-        //Update Flytta till MovieService
-        //static async Task<Movie> UpdateMovieAsync(Movie movie)
-        //{
-        //    HttpResponseMessage response = await MovieService.PutAsJsonAsync(
-        //        $"api/movies/{movie.Id}", movie);
-        //    response.EnsureSuccessStatusCode();
-
-        //    movie = await response.Content.ReadAsAsync<Movie>();
-        //    return movie;
-        //}
-
-
-        
 
         //Create port for localhost
         //movie.BaseAddress = new Uri("");
@@ -80,6 +67,21 @@ namespace Movie_Console
         //}
 
         //Console.WriteLine();
+
+
+
+        /*
+        public List<Movie> GetMovies()
+        {
+            return _movies;
+        }
+        
+        public Movie CreateMovie(Movie movie)
+        {
+            throw new NotImplementedException();
+        }
+         
+         */
 
 
     }
