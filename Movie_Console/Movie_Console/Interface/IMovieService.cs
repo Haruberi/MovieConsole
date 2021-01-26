@@ -19,7 +19,7 @@ namespace Movie_Console.Interface
 {
     public interface IMovieService
     {
-        Task<Movie> GetMoviesAsync(Movie movie);
+        Task<List<Movie>> GetMoviesAsync();
         Task<Movie> GetMovieAsync(string id);
         Task<Movie> CreateMovieAsync(Movie movie);
         Task<Movie> DeleteMovieAsync(string id);
@@ -64,7 +64,7 @@ namespace Movie_Console.Interface
             }
         }
         //GET - GetMoviesAsync
-        public async Task<Movie> GetMoviesAsync(Movie movie)
+        public async Task<List<Movie>> GetMoviesAsync()
         {
             //Movie movie = null;
             var client = new RestClient($"https://localhost:5001/api/Movie");
@@ -96,7 +96,7 @@ namespace Movie_Console.Interface
 
             //return Ok(deserializedResponse);
 
-            return null;
+            return deserializedResponse;
         }
         
         

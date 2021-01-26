@@ -10,30 +10,43 @@ namespace Movie_Console.Menu
 {
     public class MenuChoice
     {
-
-        public MenuChoice()
+        private readonly IMovieService _movieService;
+        public MenuChoice(IMovieService movieService)
         {
-            /*public List<Movie> _movies = new List<Movie>()
-        {
-            new Movie { Id = "Movie_1", MovieTitle = "The big pineapple", ReleaseYear = 2020, Description = "The story about the big pineapple." },
-            new Movie { Id = "Movie_2", MovieTitle = "The medium mango", ReleaseYear = 2021, Description = "The story about the medium mango."  },
-            new Movie { Id = "Movie_3", MovieTitle = "The small apple", ReleaseYear = 20219, Description = "The story about the small apple."  },
-
-        };*/
+            _movieService = movieService;
         }
+
+        public List<Movie> _movies = new List<Movie>()
+            {
+                new Movie { Id = "Movie_1", Title = "The big pineapple", Description = "The story about the big pineapple.", Producer="Anna Andersson", ReleaseDate = "2020" },
+                new Movie { Id = "Movie_2", Title = "The medium mango", Description = "The story about the medium mango.", Producer="", ReleaseDate = "2021" },
+                new Movie { Id = "Movie_3", Title = "The small apple", Description = "The story about the small apple.", Producer="", ReleaseDate = "2019" },
+
+            };
+
         public void DisplayMenu()
         {
             Console.WriteLine("- - - - - - - - - - - - - - - - - - WELCOME- - - - - - - - - - - - - - - - - - ");
             Console.WriteLine("- - - - - - - - - - - - - - - CHOOSE AN OPTION - - - - - - - - - - - - - - - - ");
             Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
-            Console.WriteLine("1) GET MOVIE");
+            Console.WriteLine("1) GET MOVIES");
             Console.WriteLine("2) POST MOVIE");
             Console.WriteLine("3) DELETE MOVIE");
             Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
             Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
             Console.WriteLine("- - - - - - - - - - - - - - - SELECT AN OPTION - - - - - - - - - - - - - - - - -");
+            var choice = Console.ReadLine();
 
-            Console.Clear();
+            while (!string.IsNullOrEmpty(choice))
+            {
+                switch (choice)
+                {
+                    case "1":
+                        var movies = _movieService.GetMoviesAsync();
+                        break;
+   
+                }
+            }
         }
         //GET
         public void GetMovie()
@@ -70,13 +83,13 @@ namespace Movie_Console.Menu
             Console.WriteLine("ENTER DESCRIPTION : ");
             var description = Console.ReadLine();
 
-            var movie = new Movie { Id = id, Title = movieTitle, ReleaseDate = releaseYear, Producer=producer, Description = description };
+            var movie = new Movie { Id = id, Title = movieTitle, ReleaseDate = releaseYear, Producer = producer, Description = description };
         }
 
         //DELETE
         //public bool DeleteMovie(MovieModel model)
         //{
         //}
-
     }
 }
+
