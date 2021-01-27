@@ -11,12 +11,12 @@ namespace Movie_Console.MovieAPI
     {
         [JsonProperty("id")]
         public string Id { get; set; }
-       
+
         [JsonProperty("title")]
         public string Title { get; set; }
-        
+
         [JsonProperty("description")]
-        public string Description { get; set; } 
+        public string Description { get; set; }
 
         [JsonProperty("producer")]
         public string Producer { get; set; }
@@ -24,8 +24,18 @@ namespace Movie_Console.MovieAPI
         [JsonProperty("release_date")]
         public string ReleaseDate { get; set; }
 
-        }
-
+        //    public Movie(string id, string title, string description, string producer, string releasedate)
+        //    {
+        //        Id = id;
+        //        Title = title;
+        //        Description = description;
+        //        Producer = producer;
+        //        ReleaseDate = releasedate;
+        //    }
+        //}
     }
+}
+
+
 
 
