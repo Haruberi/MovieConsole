@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Movie_Console
 {
-    class Program:Movie
+    class Program : Movie
     {
         public static void Main(String[] args)
         {
