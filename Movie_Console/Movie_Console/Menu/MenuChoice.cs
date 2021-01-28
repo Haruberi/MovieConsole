@@ -34,78 +34,75 @@ namespace Movie_Console.Menu
             {
                 switch (choice)
                 {
-                    //GET
+
                     case "1":
                         Console.Clear();
-
-                        var movieList = _movieService.GetMoviesAsync();
-                        List<Movie> movies = new List<Movie>();
-                        foreach (Movie m in movies)
+                        void DisplayMovies()
                         {
-                            Console.WriteLine(movieList);
+                            var movies = Task.Run(() => _movieService.GetMoviesAsync()).Result;
+
+                            foreach (Movie m in movies)
+                            {
+                                Console.WriteLine($"Movie ID:  {m.Id}");
+                                Console.WriteLine($"Movie Title: {m.Title}");
+                                Console.WriteLine($"Movie Description: {m.Description}");
+                                Console.WriteLine($"Movie Producer: {m.Producer}");
+                                Console.WriteLine($"Movie Release date: {m.ReleaseDate}");
+                            }
+
+                            Console.WriteLine(" i) ENTER ID TO GET MOVIE ");
+                            Console.WriteLine(" X) RETURN TO MAIN MENU ");
+                            var input = Console.ReadLine();
                         }
-
-                        Console.WriteLine(" i) ENTER ID TO GET MOVIE ");
-                        Console.WriteLine(" X) RETURN TO MAIN MENU ");
-                        Console.ReadLine();
-
-                        switch (Console.ReadLine())
-                        {
-                            case "i":
-                                //GET ID
-                                Console.Clear();
-                                var getMovieID = _movieService.GetMovieAsync(movieList.Id.ToString());
-                                foreach (var movie in getMovieID)
-                                {
-                                    Console.WriteLine("ENTER ID TO GET A SPECIFIC MOVIE : " + getMovieID.GetType().GetProperties());
-                                    Console.ReadLine();
-                                }
-                                break;
-
-                            case "X":
-                                //RETURN TO MAIN MENU
-                                
-                                Console.Clear();
-
-                                Console.WriteLine();
-                                break;
-                            default:
-                                Console.WriteLine();
-                                break;
-                        }
-
                         break;
 
+                        //void DisplayMovie()
+                        //{
+
+                        //    var selectedMovie = Task.Run(() => _movieService.GetMovieAsync(string id)).Result;
+                        //    Console.WriteLine($"Movie Id: {selectedMovie.Id}");
+                        //    Console.WriteLine($"Movie Title: {selectedMovie.Title}");
+                        //    Console.WriteLine($"Movie Description: {selectedMovie.Description}");
+                        //    Console.WriteLine($"Movie Producer: {selectedMovie.Producer}");
+                        //    Console.WriteLine($"Movie Release Date: {selectedMovie.RealeaseDate}");
+
+                        //}
+
+                        break;
+                        Console.WriteLine("Press any key to return to main menu");
+                        Console.ReadLine();
                     //POST
                     case "2":
-                        Console.Clear();
-                        var createMovie = _movieService.CreateMovieAsync(createMovie.Id.ToString());
+                        //Console.Clear();
 
-                        Console.WriteLine("ENTER ID OF MOVIE : ");
-                        var id = Console.ReadLine();
-                        Console.WriteLine("ENTER TITLE OF MOVIE : ");
-                        var movieTitle = Console.ReadLine();
-                        Console.WriteLine("ENTER RELEASE YEAR : ");
-                        var releaseYear = Console.ReadLine();
-                        Console.WriteLine("ENTER PRODUCER : ");
-                        var producer = Console.ReadLine();
-                        Console.WriteLine("ENTER DESCRIPTION : ");
-                        var description = Console.ReadLine();
+                        //void AddMovie()
+                        //{
+                        //    var createMovie = Task.Run(() => _movieService.CreateMovieAsync(id)).Result;
+                        //    //var createMovie = _movieService.CreateMovieAsync(createMovie.Id.ToString());
 
-                        var movie = new Movie { Id = id, Title = movieTitle, ReleaseDate = releaseYear, Producer = producer, Description = description };
+                        //    Console.WriteLine("ENTER ID OF MOVIE : ");
+                        //    var id = Console.ReadLine();
+                        //    Console.WriteLine("ENTER TITLE OF MOVIE : ");
+                        //    var movieTitle = Console.ReadLine();
+                        //    Console.WriteLine("ENTER RELEASE YEAR : ");
+                        //    var releaseYear = Console.ReadLine();
+                        //    Console.WriteLine("ENTER PRODUCER : ");
+                        //    var producer = Console.ReadLine();
+                        //    Console.WriteLine("ENTER DESCRIPTION : ");
+                        //    var description = Console.ReadLine();
+
+                        //    var movie = new Movie { Id = id, Title = movieTitle, ReleaseDate = releaseYear, Producer = producer, Description = description };
+                        //}
                         break;
 
                     //DELETE
                     case "3":
                         Console.Clear();
-
-                        Console.WriteLine("ENTER ID OF MOVIE TO DELETE A SPECIFIC MOVIE : ");
-                        Console.ReadLine();
-                        while (true)
+                        void DeleteMovie()
                         {
-
+                            Console.WriteLine("ENTER ID OF MOVIE TO DELETE A SPECIFIC MOVIE : ");
+                            Console.ReadLine();
                         }
-
                         break;
                 }
             }
