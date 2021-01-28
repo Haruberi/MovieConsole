@@ -23,70 +23,17 @@ namespace Movie_Console.Interface
         Task<Movie> GetMovieAsync(string id);
         Task<Movie> CreateMovieAsync(Movie movie);
         Task<Movie> DeleteMovieAsync(string id);
-        Task RunAsync();
-
     }
     public class MovieService : IMovieService
     {
-        public async Task RunAsync()
-        {
-
-            var key = Console.ReadLine();
-            switch (key)
-            {
-                //GET
-                case "1":
-                    Console.WriteLine("- - - - - GET MOVIE - - - - -");
-                    Console.WriteLine("- - - - - - - - - - - - - - -");
-                    //var getMovie = await MovieService.GetMovieAsync(id);
-                    break;
-
-                //POST
-                case "2":
-                    Console.WriteLine("- - - - - CREATE NEW MOVIE - - - - -");
-                    Console.WriteLine("- - - - - - - - - - - - - - - - - - -");
-                    //var postClient = await new MovieService().CreateMovieAsync(movie);
-                    break;
-
-                //DELETE
-                case "3":
-                    Console.WriteLine("- - - - - DELETE MOVIE - - - - -");
-                    Console.WriteLine("- - - - - - - - - - - - - - - - -");
-                    //var deleteClient = await new MovieService().DeleteMovieAsync(id);
-                    //Console.WriteLine("- - - - - - - - - - - - - - ENTER ID TO DELETE MOVIE - - - - - - - - - - ");
-                    //Console.ReadLine();
-                    break;
-
-                //DEFAULT
-                default:
-                    Console.WriteLine("Start over");
-                    break;
-            }
-        }
         //GET - GetMoviesAsync
         public async Task<List<Movie>> GetMoviesAsync()
         {
-            //Movie movie = null;
             var client = new RestClient($"https://localhost:5001/api/Movie");
             var getRequest = new RestRequest(Method.GET);
             var cancellationTokenSource = new CancellationTokenSource();
 
-            //få in under kod här:
-
-            //using (var client = new HttpClient())
-            //{
-            //    using (var response = await client.GetAsync(url))
-            //    {
-            //        var responseCont = response.Content;
-            //        stringResp = await responseCont.ReadAsStringAsync();
-            //    }
-            //}
-
             var response2 = client.Execute<List<Movie>>(getRequest);
-            //var data = response2.Data;
-            //RestResponse<Movie> response = await getMovie.ExecuteAsync(getRequest);
-
-            //RestResponse<List> response = await getMovie.Execute(getRequest);
 
             var deserializedResponse = JsonConvert.DeserializeObject<List<Movie>>(response2.Content,
                 new JsonSerializerSettings
@@ -94,12 +41,10 @@ namespace Movie_Console.Interface
                     NullValueHandling = NullValueHandling.Ignore
                 });
 
-            //return Ok(deserializedResponse);
-
             return deserializedResponse;
         }
-        
-        
+
+
 
         //GET ID - GetMovieAsync
         public async Task<Movie> GetMovieAsync(string id)
@@ -107,7 +52,7 @@ namespace Movie_Console.Interface
             Movie movie = null;
 
             var getIdMovie = new RestClient($"https://localhost:5001/api/Movie/{id}");
-            var getIdRequest = new RestRequest("Get movie from ID", Method.GET);
+            var getIdRequest = new RestRequest(Method.GET);
 
             try
             {
@@ -131,13 +76,6 @@ namespace Movie_Console.Interface
 
             var postClient = new RestClient($"https://localhost:5001/api/Movie");
 
-            //var jObjectbody = new RestRequest("Create movie", Method.POST);
-
-            //jObjectbody.AddParameter("Id", "Movie_1");
-            //jObjectbody.AddParameter("MovieTitle", "The big pineapple");
-            //jObjectbody.AddParameter("ReleaseYear", 2021);
-            //jObjectbody.AddParameter("Description", "The story about the big pineapple");
-
             try
             {
                 var postRequest = new RestRequest("new_movie.json", DataFormat.Json);
@@ -156,42 +94,21 @@ namespace Movie_Console.Interface
 
         public Task<Movie> DeleteMovieAsync(string id)
         {
-            throw new NotImplementedException();
-        }
-
-
-        //DELETE
-        /*public async Task<Movie> DeleteMovieAsync(string id)
-        {
-
-        }
-/*
-            var deleteClient = new RestClient($"https://localhost:5001/api/Movie/{id}");
-
-            //lägg till true false kod från api
-
-            var deleteRequest = new RestRequest("Delete movie", Method.DELETE) { RequestFormat = DataFormat.Json };
-            
             try
             {
-                deleteRequest.AddParameter("application/json", id, ParameterType.RequestBody);
-                var deleteResponse = await deleteClient.ExecuteAsync(deleteRequest);
-                movieDelete = deleteResponse;
-            }
 
-            catch (Exception e)
-            {
-                Console.WriteLine("Delete movie failed", e.Message);
             }
-            finally
+            catch (Exception)
             {
-                Console.WriteLine("DELETE movie success!");
-            }
-            
-            return Movie;*/
-    }
-    }
 
+                throw;
+            }
+            throw new NotImplementedException();
+        }
+    }
+}
+
+        
 
     
 

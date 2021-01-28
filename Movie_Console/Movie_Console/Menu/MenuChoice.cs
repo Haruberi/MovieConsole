@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Movie_Console.Menu
 {
@@ -15,15 +16,7 @@ namespace Movie_Console.Menu
         {
             _movieService = movieService;
         }
-
-        //public List<Movie> _movies = new List<Movie>()
-        //    {
-        //        new Movie { Id = "Movie_1", Title = "The big pineapple", Description = "The story about the big pineapple.", Producer="Anna Andersson", ReleaseDate = "2020" },
-        //        new Movie { Id = "Movie_2", Title = "The medium mango", Description = "The story about the medium mango.", Producer="", ReleaseDate = "2021" },
-        //        new Movie { Id = "Movie_3", Title = "The small apple", Description = "The story about the small apple.", Producer="", ReleaseDate = "2019" },
-
-        //    };
-
+        
         public void DisplayMenu()
         {
             Console.WriteLine("- - - - - - - - - - - - - - - - - - WELCOME- - - - - - - - - - - - - - - - - - ");
@@ -44,11 +37,12 @@ namespace Movie_Console.Menu
                     //GET
                     case "1":
                         Console.Clear();
-                        var movies = _movieService.GetMoviesAsync();
-                        List<Movie> movieList = new List<Movie>();
-                        foreach (Movie m in movieList)
+
+                        var movieList = _movieService.GetMoviesAsync();
+                        List<Movie> movies = new List<Movie>();
+                        foreach (Movie m in movies)
                         {
-                            movieList.Add(m);
+                            Console.WriteLine(movieList);
                         }
 
                         Console.WriteLine(" i) ENTER ID TO GET MOVIE ");
@@ -60,11 +54,17 @@ namespace Movie_Console.Menu
                             case "i":
                                 //GET ID
                                 Console.Clear();
-                                //var movieId = _movieService.GetMovieAsync();
+                                var getMovieID = _movieService.GetMovieAsync(movieList.Id.ToString());
+                                foreach (var movie in getMovieID)
+                                {
+                                    Console.WriteLine("ENTER ID TO GET A SPECIFIC MOVIE : " + getMovieID.GetType().GetProperties());
+                                    Console.ReadLine();
+                                }
                                 break;
 
                             case "X":
                                 //RETURN TO MAIN MENU
+                                
                                 Console.Clear();
 
                                 Console.WriteLine();
@@ -79,6 +79,7 @@ namespace Movie_Console.Menu
                     //POST
                     case "2":
                         Console.Clear();
+                        var createMovie = _movieService.CreateMovieAsync(createMovie.Id.ToString());
 
                         Console.WriteLine("ENTER ID OF MOVIE : ");
                         var id = Console.ReadLine();
@@ -91,40 +92,25 @@ namespace Movie_Console.Menu
                         Console.WriteLine("ENTER DESCRIPTION : ");
                         var description = Console.ReadLine();
 
-                        //var movie = new Movie { Id = id, Title = movieTitle, ReleaseDate = releaseYear, Producer = producer, Description = description };
+                        var movie = new Movie { Id = id, Title = movieTitle, ReleaseDate = releaseYear, Producer = producer, Description = description };
                         break;
+
                     //DELETE
                     case "3":
-                        Console.WriteLine("ENTER ID OF MOVIE TO DELETE MOVIE: ");
-                        Console.ReadLine();
                         Console.Clear();
+
+                        Console.WriteLine("ENTER ID OF MOVIE TO DELETE A SPECIFIC MOVIE : ");
+                        Console.ReadLine();
+                        while (true)
+                        {
+
+                        }
+
                         break;
                 }
             }
         }
     }
 }
-        //POST
-        /*public void PostMovie()
-        {
-            Console.WriteLine("ENTER ID OF MOVIE : ");
-            var id = Console.ReadLine();
-            Console.WriteLine("ENTER TITLE OF MOVIE : ");
-            var movieTitle = Console.ReadLine();
-            Console.WriteLine("ENTER RELEASE YEAR : ");
-            var releaseYear = Console.ReadLine();
-            Console.WriteLine("ENTER PRODUCER : ");
-            var producer = Console.ReadLine();
-            Console.WriteLine("ENTER DESCRIPTION : ");
-            var description = Console.ReadLine();
-
-            var movie = new Movie { Id = id, Title = movieTitle, ReleaseDate = releaseYear, Producer = producer, Description = description };
-        }
-
-        //DELETE
-        //public bool DeleteMovie(MovieModel model)
-        //{
-        //}*/
-    
 
 
