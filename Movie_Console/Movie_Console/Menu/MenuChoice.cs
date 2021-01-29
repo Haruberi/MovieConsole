@@ -19,22 +19,19 @@ namespace Movie_Console.Menu
 
         public void DisplayMenu()
         {
-            Console.WriteLine("- - - - - - - - - - - - - - - - - - WELCOME- - - - - - - - - - - - - - - - - - ");
-            Console.WriteLine("- - - - - - - - - - - - - - - CHOOSE AN OPTION - - - - - - - - - - - - - - - - ");
-            Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
-            Console.WriteLine("1) GET MOVIES");
-            Console.WriteLine("2) POST MOVIE");
-            Console.WriteLine("3) DELETE MOVIE");
             Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
             Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
-            Console.WriteLine("- - - - - - - - - - - - - - - SELECT AN OPTION - - - - - - - - - - - - - - - - -");
+            Console.WriteLine("- - - - - - - - - - - - - - - - - WELCOME ! - - - - - - - - - - - - - - - - - -");
+            Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
+            Console.WriteLine("- - - - - - - - - - - - - - PRESS 1 TO GET MOVIES - - - - - - - - - - - - - - -");
+            Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
+            Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
             var choice = Console.ReadLine();
 
             while (!string.IsNullOrEmpty(choice))
             {
                 switch (choice)
                 {
-
                     case "1":
                         Console.Clear();
                         var selectedMovie = DisplayMovies();
@@ -42,39 +39,6 @@ namespace Movie_Console.Menu
 
                         Console.WriteLine("Press any key to return to main menu");
                         Console.ReadLine();
-                        break;
-                    //POST
-                    case "2":
-                        //Console.Clear();
-
-                        //void AddMovie()
-                        //{
-                        //    var createMovie = Task.Run(() => _movieService.CreateMovieAsync(id)).Result;
-                        //    //var createMovie = _movieService.CreateMovieAsync(createMovie.Id.ToString());
-
-                        //    Console.WriteLine("ENTER ID OF MOVIE : ");
-                        //    var id = Console.ReadLine();
-                        //    Console.WriteLine("ENTER TITLE OF MOVIE : ");
-                        //    var movieTitle = Console.ReadLine();
-                        //    Console.WriteLine("ENTER RELEASE YEAR : ");
-                        //    var releaseYear = Console.ReadLine();
-                        //    Console.WriteLine("ENTER PRODUCER : ");
-                        //    var producer = Console.ReadLine();
-                        //    Console.WriteLine("ENTER DESCRIPTION : ");
-                        //    var description = Console.ReadLine();
-
-                        //    var movie = new Movie { Id = id, Title = movieTitle, ReleaseDate = releaseYear, Producer = producer, Description = description };
-                        //}
-                        break;
-
-                    //DELETE
-                    case "3":
-                        Console.Clear();
-                        void DeleteMovie()
-                        {
-                            Console.WriteLine("ENTER ID OF MOVIE TO DELETE A SPECIFIC MOVIE : ");
-                            Console.ReadLine();
-                        }
                         break;
                 }
             }
@@ -87,14 +51,19 @@ namespace Movie_Console.Menu
             foreach (Movie m in movies)
             {
                 Console.WriteLine($"Movie ID:  {m.Id}");
+                Console.WriteLine();
                 Console.WriteLine($"Movie Title: {m.Title}");
+                Console.WriteLine();
                 Console.WriteLine($"Movie Description: {m.Description}");
+                Console.WriteLine();
                 Console.WriteLine($"Movie Producer: {m.Producer}");
+                Console.WriteLine();
                 Console.WriteLine($"Movie Release date: {m.ReleaseDate}");
             }
-
-            Console.WriteLine(" i) ENTER ID TO GET MOVIE ");
-            Console.WriteLine(" X) RETURN TO MAIN MENU ");
+            Console.WriteLine();
+            Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
+            Console.WriteLine("- - - - - - ENTER ID TO GET INFORMATION ABOUT ONE SPECIFIC MOVIE - - - - - - - ");
+            Console.WriteLine();
             var input = Console.ReadLine();
 
             return input;
@@ -105,9 +74,13 @@ namespace Movie_Console.Menu
 
             var selectedMovie = Task.Run(() => _movieService.GetMovieAsync(input)).Result;
             Console.WriteLine($"Movie Id: {selectedMovie.Data.Id}");
+            Console.WriteLine();
             Console.WriteLine($"Movie Title: {selectedMovie.Data.Title}");
+            Console.WriteLine();
             Console.WriteLine($"Movie Description: {selectedMovie.Data.Description}");
+            Console.WriteLine();
             Console.WriteLine($"Movie Producer: {selectedMovie.Data.Producer}");
+            Console.WriteLine();
             Console.WriteLine($"Movie Release Date: {selectedMovie.Data.ReleaseDate}");
 
         }

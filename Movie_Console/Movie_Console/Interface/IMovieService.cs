@@ -21,8 +21,6 @@ namespace Movie_Console.Interface
     {
         Task<List<Movie>> GetMoviesAsync();
         Task<Response> GetMovieAsync(string id);
-        Task<Movie> CreateMovieAsync(Movie movie);
-        Task<Movie> DeleteMovieAsync(string id);
     }
     public class MovieService : IMovieService
     {
@@ -70,46 +68,8 @@ namespace Movie_Console.Interface
 
             return response;
         }
-
-        //POST
-        public async Task<Movie> CreateMovieAsync(Movie movie)
-        {
-            
-
-            var postClient = new RestClient($"https://localhost:5001/api/Movie");
-
-            try
-            {
-                var postRequest = new RestRequest("new_movie.json", DataFormat.Json);
-                var postResponse = await postClient.GetAsync<Movie>(postRequest);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Create movie failed", e.Message);
-            }
-            finally
-            {
-                Console.WriteLine("POST movie success!");
-            }
-            return movie;
-        }
-
-        public Task<Movie> DeleteMovieAsync(string id)
-        {
-            try
-            {
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            throw new NotImplementedException();
-        }
     }
 }
-
         
 
     
