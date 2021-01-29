@@ -20,7 +20,7 @@ namespace Movie_Console.Interface
     public interface IMovieService
     {
         Task<List<Movie>> GetMoviesAsync();
-        Task<Movie> GetMovieAsync(string id);
+        Task<Response> GetMovieAsync(string id);
         Task<Movie> CreateMovieAsync(Movie movie);
         Task<Movie> DeleteMovieAsync(string id);
     }
@@ -47,16 +47,17 @@ namespace Movie_Console.Interface
 
 
         //GET ID - GetMovieAsync
-        public async Task<Movie> GetMovieAsync(string id)
+        public async Task<Response> GetMovieAsync(string id)
         {
-            Movie movie = null;
+            Response response = null;
 
             var getIdMovie = new RestClient($"https://localhost:5001/api/Movie/{id}");
             var getIdRequest = new RestRequest(Method.GET);
 
             try
             {
-                var getResponse = await getIdMovie.GetAsync<Movie>(getIdRequest);
+                var getResponse = await getIdMovie.GetAsync<Response>(getIdRequest);
+                response = getResponse;
             }
             catch (Exception e)
             {
@@ -67,12 +68,13 @@ namespace Movie_Console.Interface
                 Console.WriteLine("GET movie success!");
             }
 
-            return movie;
+            return response;
         }
 
         //POST
         public async Task<Movie> CreateMovieAsync(Movie movie)
         {
+            
 
             var postClient = new RestClient($"https://localhost:5001/api/Movie");
 
