@@ -1,7 +1,8 @@
 # MovieConsole
 Connected to Repository Movies
 
-Error Handling in GitKraken
+Error Handling
+
 S in SOLID:
 - private void DisplayMovies()
 - private void DisplayMovie(string input)
