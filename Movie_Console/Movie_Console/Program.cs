@@ -22,6 +22,7 @@ namespace Movie_Console
 
             var menu = new MenuChoice(movieService);
             menu.DisplayMenu();
+
         }
     }
 }

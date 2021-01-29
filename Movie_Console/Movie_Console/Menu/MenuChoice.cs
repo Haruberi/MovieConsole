@@ -16,7 +16,7 @@ namespace Movie_Console.Menu
         {
             _movieService = movieService;
         }
-        
+
         public void DisplayMenu()
         {
             Console.WriteLine("- - - - - - - - - - - - - - - - - - WELCOME- - - - - - - - - - - - - - - - - - ");
@@ -37,40 +37,12 @@ namespace Movie_Console.Menu
 
                     case "1":
                         Console.Clear();
-                        void DisplayMovies()
-                        {
-                            var movies = Task.Run(() => _movieService.GetMoviesAsync()).Result;
+                        var selectedMovie = DisplayMovies();
+                        DisplayMovie(selectedMovie);
 
-                            foreach (Movie m in movies)
-                            {
-                                Console.WriteLine($"Movie ID:  {m.Id}");
-                                Console.WriteLine($"Movie Title: {m.Title}");
-                                Console.WriteLine($"Movie Description: {m.Description}");
-                                Console.WriteLine($"Movie Producer: {m.Producer}");
-                                Console.WriteLine($"Movie Release date: {m.ReleaseDate}");
-                            }
-
-                            Console.WriteLine(" i) ENTER ID TO GET MOVIE ");
-                            Console.WriteLine(" X) RETURN TO MAIN MENU ");
-                            var input = Console.ReadLine();
-                        }
-                        break;
-
-                        //void DisplayMovie()
-                        //{
-
-                        //    var selectedMovie = Task.Run(() => _movieService.GetMovieAsync(string id)).Result;
-                        //    Console.WriteLine($"Movie Id: {selectedMovie.Id}");
-                        //    Console.WriteLine($"Movie Title: {selectedMovie.Title}");
-                        //    Console.WriteLine($"Movie Description: {selectedMovie.Description}");
-                        //    Console.WriteLine($"Movie Producer: {selectedMovie.Producer}");
-                        //    Console.WriteLine($"Movie Release Date: {selectedMovie.RealeaseDate}");
-
-                        //}
-
-                        break;
                         Console.WriteLine("Press any key to return to main menu");
                         Console.ReadLine();
+                        break;
                     //POST
                     case "2":
                         //Console.Clear();
@@ -106,6 +78,38 @@ namespace Movie_Console.Menu
                         break;
                 }
             }
+        }
+
+        private string DisplayMovies()
+        {
+            var movies = Task.Run(() => _movieService.GetMoviesAsync()).Result;
+
+            foreach (Movie m in movies)
+            {
+                Console.WriteLine($"Movie ID:  {m.Id}");
+                Console.WriteLine($"Movie Title: {m.Title}");
+                Console.WriteLine($"Movie Description: {m.Description}");
+                Console.WriteLine($"Movie Producer: {m.Producer}");
+                Console.WriteLine($"Movie Release date: {m.ReleaseDate}");
+            }
+
+            Console.WriteLine(" i) ENTER ID TO GET MOVIE ");
+            Console.WriteLine(" X) RETURN TO MAIN MENU ");
+            var input = Console.ReadLine();
+
+            return input;
+        }
+
+        private void DisplayMovie(string input)
+        {
+
+            var selectedMovie = Task.Run(() => _movieService.GetMovieAsync(input)).Result;
+            Console.WriteLine($"Movie Id: {selectedMovie.Data.Id}");
+            Console.WriteLine($"Movie Title: {selectedMovie.Data.Title}");
+            Console.WriteLine($"Movie Description: {selectedMovie.Data.Description}");
+            Console.WriteLine($"Movie Producer: {selectedMovie.Data.Producer}");
+            Console.WriteLine($"Movie Release Date: {selectedMovie.Data.ReleaseDate}");
+
         }
     }
 }
