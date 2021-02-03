@@ -19,6 +19,8 @@ namespace Movie_Console.Menu
 
         public void DisplayMenu()
         {
+            Console.Clear();
+
             Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
             Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
             Console.WriteLine("- - - - - - - - - - - - - - - - - WELCOME ! - - - - - - - - - - - - - - - - - -");
@@ -39,6 +41,7 @@ namespace Movie_Console.Menu
 
                         Console.WriteLine("Press any key to return to main menu");
                         Console.ReadLine();
+                        DisplayMenu();
                         break;
                 }
             }
@@ -48,8 +51,10 @@ namespace Movie_Console.Menu
         {
             var movies = Task.Run(() => _movieService.GetMoviesAsync()).Result;
 
+            Console.WriteLine("--------------------------------------------------LIST OF MOVIES------------------------------------------------------");
             foreach (Movie m in movies)
             {
+                Console.WriteLine("------------------------------------------------------------------------------------------------------------------");
                 Console.WriteLine($"Movie ID:  {m.Id}");
                 Console.WriteLine();
                 Console.WriteLine($"Movie Title: {m.Title}");
@@ -59,7 +64,9 @@ namespace Movie_Console.Menu
                 Console.WriteLine($"Movie Producer: {m.Producer}");
                 Console.WriteLine();
                 Console.WriteLine($"Movie Release date: {m.ReleaseDate}");
+                Console.WriteLine("------------------------------------------------------------------------------------------------------------------");
             }
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------");
             Console.WriteLine();
             Console.WriteLine("- - - - - - - - - - - - - - - - - - - -  - - - - - - - - - - - - - - - - - - - ");
             Console.WriteLine("- - - - - - ENTER ID TO GET INFORMATION ABOUT ONE SPECIFIC MOVIE - - - - - - - ");
@@ -71,7 +78,8 @@ namespace Movie_Console.Menu
 
         private void DisplayMovie(string input)
         {
-
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------");
             var selectedMovie = Task.Run(() => _movieService.GetMovieAsync(input)).Result;
             Console.WriteLine($"Movie Id: {selectedMovie.Data.Id}");
             Console.WriteLine();
@@ -82,7 +90,8 @@ namespace Movie_Console.Menu
             Console.WriteLine($"Movie Producer: {selectedMovie.Data.Producer}");
             Console.WriteLine();
             Console.WriteLine($"Movie Release Date: {selectedMovie.Data.ReleaseDate}");
-
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("------------------------------------------------------------------------------------------------------------------");
         }
     }
 }
